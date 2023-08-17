@@ -1,7 +1,6 @@
 package com.example.product.model;
 
 public class Product {
-//    id, tên sản phẩm, giá sản phẩm, mô tả của sản phẩm, nhà sản xuất.
     private int id;
     private String name;
     private double price;
