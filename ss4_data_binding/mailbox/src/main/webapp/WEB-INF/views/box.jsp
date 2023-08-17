@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Settings</h1>
-<form:form modelAttribute="mailBox" action="/mail" method="post">
+<form:form modelAttribute="mailBox" action="/mail/update" method="post">
     <table>
         <tr>
             <td>Language</td>
