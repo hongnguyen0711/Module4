@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <style>
+        table, th, td {
+            text-align: center;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h1>Blog management</h1>
+<a th:href="@{/blog/create}" style="text-decoration: none">Add new blog</a>
+
+<div>
+    <span th:text="${success}"></span>
+    <span th:text="${message}"></span>
+</div>
+<hr>
+
+<table class="table table-dark table-striped">
+<thead>
+<tr>
+    <th>#</th>
+    <th>Title</th>
+    <th>Post</th>
+    <th>Author</th>
+    <th>Comment</th>
+    <th>Delete</th>
+    <th>Edit</th>
+    <th>view</th>
+</tr>
+</thead>
+    <tbody>
+    <tr th:each="blog,loop : ${blogs}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${blog.getTitle()}"></td>
+        <td th:text="${blog.getPost()}"></td>
+        <td th:text="${blog.getAuthor().getName()}"></td>
+        <td th:text="${blog.getComment()}"></td>
+        <td><a th:href="@{blog/{id}/delete(id=${blog.getId()})}">Delete</a></td>
+        <td><a th:href="@{blog/{id}/edit(id=${blog.getId()})}">Edit</a></td>
+        <td><a th:href="@{blog/{id}/view(id=${blog.getId()})}">View</a></td>
+    </tr>
+    </tbody>
+
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

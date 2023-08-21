@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h2>Update blog</h2>
+<a th:href="@{/blog}">Back to blog list.</a>
+<hr>
+<form th:action="@{/blog/update}" th:object="${blog}" method="post" novalidate="novalidate">
+  <table>
+    <tr>
+      <td>
+        <div class="mb-3 form-check">
+          <label for="id" class="form-label">Id</label>
+          <input type="number" class="form-control" id="id" th:value="${blog.id}" th:field="*{id}" readonly />
+        </div>
+      </td>
+      <td>
+        <div class="mb-3 form-check">
+          <label for="name" class="form-label">Title</label>
+          <input type="text" class="form-control" id="name" th:value="${blog.title}" th:field="*{title}" >
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="mb-3 form-check">
+          <label for="price" class="form-label">Author</label>
+          <select name="author" id="price" th:field="*{author}">
+            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+          </select>
+        </div>
+      </td>
+      <td>
+        <div class="mb-3 form-check">
+          <label for="des" class="form-label">Comment</label>
+          <input type="text" class="form-control" id="des" th:value="${blog.comment}" th:field="*{comment}">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="mb-3 form-check">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </td>
+      <td>
+        <div class="mb-3 form-check">
+          <label for="producer" class="form-label">Post</label>
+          <input type="text" class="form-control" id="producer" th:value="${blog.post}" th:field="*{post}">
+        </div>
+      </td>
+    </tr>
+
+  </table>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+
+</form>
+</body>
+</html>
