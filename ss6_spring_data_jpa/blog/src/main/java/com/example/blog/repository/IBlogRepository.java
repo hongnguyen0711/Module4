@@ -13,10 +13,13 @@ import java.util.List;
 
 public interface IBlogRepository extends JpaRepository<Blog, Integer> {
     Page<Blog> findBlogByTitleContaining(Pageable pageable, String keyword);
+
     @Query(value = "select * from blog", nativeQuery = true)
     List<Blog> getAll();
+
     @Query(value = "select * from Blog where id = :id", nativeQuery = true)
     Blog getBlogId(@Param("id") int id);
+
     @Modifying
     @Transactional
     @Query(value = "delete from Blog where id = :id", nativeQuery = true)
@@ -25,9 +28,10 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
     @Modifying
     @Transactional
     @Query(value = "insert into Blog(title, post, comment, author_id) value(:title, :post, :comment, :author)", nativeQuery = true)
-    void addNewBlog(@Param("title") String title,@Param("post") String post, @Param("comment")String comment, @Param("author") int author );
+    void addNewBlog(@Param("title") String title, @Param("post") String post, @Param("comment") String comment, @Param("author") int author);
+
     @Modifying
     @Transactional
-    @Query(value = "update from Blog set title = :title, post = :post, comment = :comment, author_id = :author where id = :id", nativeQuery = true)
-    void updateBlog(@Param("id")int id,@Param("title") String title,@Param("post") String post, @Param("comment")String comment,@Param("author") int author);
+    @Query(value = "update Blog set title = :title, post = :post, comment = :comment, author_id = :author where id = :id", nativeQuery = true)
+    void updateBlog(@Param("id") int id, @Param("title") String title, @Param("post") String post, @Param("comment") String comment, @Param("author") int author);
 }
