@@ -5,12 +5,13 @@ import com.example.blog.model.Blog;
 import com.example.blog.service.IAuthorService;
 import com.example.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -24,9 +25,11 @@ public class BlogController {
     IAuthorService authorService;
 
     @GetMapping("")
-    public String showList(Model model) {
-        List<Blog> list = blogService.findAll();
-        model.addAttribute("blogs", list);
+    public String showPage(@RequestParam(defaultValue = "0", required = false) int page,
+                           @RequestParam(defaultValue = "", required = false) String keyword, Model model) {
+        Pageable pageable = PageRequest.of(page, 2, Sort.by("title").descending());
+        Page<Blog> blogPage = blogService.searchByName(pageable, keyword);
+        model.addAttribute("blogs", blogPage);
         return "list";
     }
 
@@ -44,19 +47,22 @@ public class BlogController {
         redirect.addFlashAttribute("success", "save successfully!");
         return "redirect:/blog";
     }
+
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable int id){
+    public String delete(@PathVariable int id) {
         blogService.deleteBlog(id);
         return "redirect:/blog";
     }
+
     @GetMapping("/{id}/view")
-    public String view(@PathVariable int id, Model model){
+    public String view(@PathVariable int id, Model model) {
         Blog blog = blogService.findById(id);
         model.addAttribute("blog", blog);
         return "detail";
     }
+
     @GetMapping("/{id}/edit")
-    public String showEdit(@PathVariable int id, Model model){
+    public String showEdit(@PathVariable int id, Model model) {
         List<Author> authorList = authorService.findAuthor();
         model.addAttribute("blog", blogService.findById(id));
         model.addAttribute("authors", authorList);
@@ -64,11 +70,11 @@ public class BlogController {
         return "edit";
     }
 
-        @PostMapping("/update")
-        public String update(Blog blog, RedirectAttributes redirect){
-            blogService.update(blog);
-            redirect.addFlashAttribute("message", "Update successful!");
-            return "redirect:/blog";
-        }
+    @PostMapping("/update")
+    public String update(Blog blog, RedirectAttributes redirect) {
+        blogService.update(blog);
+        redirect.addFlashAttribute("message", "Update successful!");
+        return "redirect:/blog";
+    }
 
 }

@@ -4,6 +4,8 @@ import com.example.blog.model.Author;
 import com.example.blog.model.Blog;
 import com.example.blog.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,24 +20,30 @@ private IBlogRepository blogRepository;
         return blogRepository.findAll();
     }
 
+
     @Override
     public void addBlog(Blog blog) {
-        blogRepository.save(blog);
+        blogRepository.addNewBlog(blog.getTitle(),blog.getPost(), blog.getComment(), blog.getAuthor().getId());
     }
 
     @Override
     public void deleteBlog(int id) {
-        blogRepository.deleteById(id);
+        blogRepository.removeById(id);
     }
 
     @Override
     public Blog findById(int id) {
-        return blogRepository.findById(id).orElse(null);
+        return blogRepository.getBlogId(id);
     }
 
     @Override
     public void update(Blog blog) {
-        blogRepository.save(blog);
+        blogRepository.updateBlog(blog.getId(),blog.getTitle(),blog.getPost(), blog.getComment(), blog.getAuthor().getId());
+    }
+
+    @Override
+    public Page<Blog> searchByName(Pageable pageable,String keyword) {
+        return blogRepository.findBlogByTitleContaining(pageable,keyword);
     }
 
 }
