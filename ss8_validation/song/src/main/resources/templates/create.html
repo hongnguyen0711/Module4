@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h2>Add new song</h2>
+<a th:href="@{/song}">Back to blog list.</a>
+<hr>
+<form th:action="@{/song/create}" th:object="${songDto}" method="post" novalidate="novalidate">
+    <table>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" >
+                    <small style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="des" class="form-label">Singer</label>
+                    <input class="form-control" id="des" th:field="*{singer}">
+                    <small style="color: red" th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}"></small>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3 form-check">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="producer" class="form-label">Type</label>
+                    <input type="text" class="form-control" id="producer" th:field="*{musicType}">
+                    <small style="color: red" th:if="${#fields.hasErrors('musicType')}" th:errors="*{musicType}"></small>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+</form>
+</body>
+</html>

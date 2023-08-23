@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h2>Registration Form</h2>
+
+<hr>
+<form th:action="@{/user/create}" th:object="${userDto}" method="post" novalidate="novalidate">
+    <table width="0px">
+        <tr>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="mail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="mail" th:field="*{email}">
+                    <small style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="name" class="form-label">Fist Name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{firstName}">
+                    <small style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></small>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" th:field="*{lastName}" >
+                    <small style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></small>
+
+                </div>
+            </td>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="text" class="form-control" id="age" th:field="*{age}" >
+                    <small style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="mb-3 form-check">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </td>
+            <td>
+                <div class="mb-3 form-check">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phone" th:field="*{phoneNumber}">
+                    <small style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+</form>
+</body>
+</html>
