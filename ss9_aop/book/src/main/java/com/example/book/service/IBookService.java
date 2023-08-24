@@ -11,4 +11,8 @@ public interface IBookService {
     List<Book> findAll();
 
     Page<Book> searchByName(Pageable pageable, String keyword);
+
+    Book findById(int id);
+
+    void borrow(int id);
 }
