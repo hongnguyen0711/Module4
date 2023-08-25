@@ -13,6 +13,10 @@ public class Book {
     private int quantity;
     @OneToMany(mappedBy = "book")
     private Set<BookBorrow> bookBorrowSet;
+    public String randomCode(){
+        String code = String.valueOf((int) (Math.random()*99999));
+        return code;
+    }
 
     public Set<BookBorrow> getBookBorrowSet() {
         return bookBorrowSet;

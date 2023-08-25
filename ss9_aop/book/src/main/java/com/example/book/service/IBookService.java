@@ -14,5 +14,5 @@ public interface IBookService {
 
     Book findById(int id);
 
-    void borrow(int id);
+    void borrow(Book book);
 }

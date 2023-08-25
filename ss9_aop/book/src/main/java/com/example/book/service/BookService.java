@@ -30,8 +30,7 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public void borrow(int id) {
-        Book book = findById(id);
+    public void borrow(Book book) {
         book.setQuantity(book.getQuantity()-1);
         repository.save(book);
     }

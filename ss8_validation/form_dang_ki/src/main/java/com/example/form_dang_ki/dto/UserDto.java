@@ -1,4 +1,4 @@
-package com.example.form_dang_ki.model;
+package com.example.form_dang_ki.dto;
 
 import javax.validation.constraints.*;
 
