@@ -1,6 +1,5 @@
-package com.example.song.model;
+package com.example.song.dto;
 
-import com.example.song.controller.SongController;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
