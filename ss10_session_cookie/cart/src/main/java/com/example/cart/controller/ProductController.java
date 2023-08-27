@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Action;
 import java.util.Optional;
 
@@ -42,5 +44,14 @@ public class ProductController {
         }
         cart.addProduct(productOptional.get());
         return "redirect:/shop";
+    }
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable long id, HttpServletResponse response, Model model) {
+        Cookie cookie = new Cookie("productId", id + "");
+        cookie.setMaxAge(1 * 24 * 60 * 60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        model.addAttribute("products", service.findById(id));
+        return "detail";
     }
 }

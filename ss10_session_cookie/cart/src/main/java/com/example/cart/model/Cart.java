@@ -61,7 +61,7 @@ public class Cart {
     public Float countTotalPayment(){
         float payment = 0;
         for (Map.Entry<Product,Integer> entry:products.entrySet()) {
-            payment = (float) (entry.getKey().getPrice()*entry.getValue());
+            payment += (float) (entry.getKey().getPrice()*entry.getValue());
         }
         return payment;
     }
