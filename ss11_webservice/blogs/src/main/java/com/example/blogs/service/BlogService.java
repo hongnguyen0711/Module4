@@ -44,4 +44,9 @@ private IBlogRepository blogRepository;
         return blogRepository.findBlogByTitleContaining(pageable,keyword);
     }
 
+    @Override
+    public List<Blog> searchName(String name) {
+        return blogRepository.findBlogByTitle("%" + name + "%");
+    }
+
 }

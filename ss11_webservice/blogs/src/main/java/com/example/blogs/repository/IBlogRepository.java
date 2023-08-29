@@ -8,11 +8,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface IBlogRepository extends JpaRepository<Blog, Integer> {
     Page<Blog> findBlogByTitleContaining(Pageable pageable, String keyword);
+    @Query(value = "select * from blog where title like :name", nativeQuery = true)
+    List<Blog> findBlogByTitle(@Param("name") String name);
 
     @Query(value = "select * from blog", nativeQuery = true)
     List<Blog> getAll();
