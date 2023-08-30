@@ -5,6 +5,9 @@ import com.example.blogs.model.Blog;
 import com.example.blogs.service.IAuthorService;
 import com.example.blogs.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,5 +56,15 @@ public class RestBlogController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Blog>> blogPage(@RequestParam String keyword, @RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 1);
+        Page<Blog> blogPage = service.searchByName(pageable, keyword);
+        if (blogPage != null) {
+            return new ResponseEntity<>(blogPage, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="code.jquery.com_jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<input type="text" id="searchName"/>
+<button onclick="search1(0)">Search</button>
+<br>
+<h2>List blog</h2>
+<table border="1" style="border-collapse: collapse">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Post</th>
+        <th>Comment</th>
+    </thead>
+
+    <tbody id="content"></tbody>
+
+</table>
+
+<button onclick="more()" id="page">Load More</button>
+
+<script>
+    let page = 0;
+
+    function search1(page) {
+        let name = $("#searchName").val();
+        let content = "";
+        $.ajax({
+            contentType: "application/json",
+            method: "GET",
+            dataType: "json",
+            url: `http://localhost:8080/blog/search?keyword=${name}&page=${page}`,
+            success: function (data) {
+                data = data.content;
+                for (let i = 0; i < data.length; i++) {
+                    content += ` <tr>
+                        <td>${i + 1}</td>
+                        <td>${data[i].id}</td>
+                        <td>${data[i].title}</td>
+                        <td>${data[i].post}</td>
+                        <td>${data[i].comment}</td>
+                    </tr>`;
+                }
+                $("#content").append(content);
+            }
+        })
+    }
+
+    function more() {
+        page++
+        search1(page);
+    }
+</script>
+</body>
+</html>
