@@ -12,9 +12,10 @@ public class Blog {
     private String title;
     private String post;
     private String comment;
-    @JsonBackReference
+
     @ManyToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
+    @JsonBackReference
     private Author author;
     public Blog() {
     }
